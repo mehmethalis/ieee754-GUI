@@ -4,6 +4,9 @@ from ieee754 import IEEE754
 
 app = Flask(__name__)
 
+@app.route("/", methods=[ "GET"])
+def root():
+    return {"message":"Works"}
 
 @app.route("/ieee754", methods=["POST", "GET"])
 def ieee754():
