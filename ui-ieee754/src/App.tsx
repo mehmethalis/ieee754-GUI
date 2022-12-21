@@ -9,13 +9,36 @@ function App() {
   const [precisionType, setType] = useState("half");
   const [result, setResult] = useState({
     isShow: true,
-    type: "Single",
+    type: "single",
     number: "12.5",
     data: "01000001010010000000000000000000",
     mantissa: "10010000000000000000000",
     exponent: "10000010",
     sign: "0",
   });
+
+  const handle = async () => {
+    setLoading(true);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ number: parseFloat(number), precisionType: precisionType }),
+    };
+    await fetch("http://127.0.0.1:5000/ieee754", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        setResult({
+          type: data.type,
+          number: data.number,
+          data: data.data,
+          mantissa: data.mantissa,
+          exponent: data.exponent,
+          sign: data.sign,
+          isShow: true,
+        });
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="app">
@@ -49,7 +72,7 @@ function App() {
             <option value="octuple">Octuple | 256-Bit</option>
           </select>
 
-          <button type="button" onClick={() => setLoading(!isLoading)}>
+          <button type="button" onClick={() => handle()} disabled={!number}>
             {isLoading ? <div className="loader" /> : "CALCULATE"}
           </button>
         </form>
@@ -81,17 +104,22 @@ function App() {
             </div>
             <br />
             <br />
+
             <div className="sign">
               <div className="box">{result.sign}</div>
             </div>
             <div className="exponent">
               {result.exponent.split("").map((bit) => (
-                <div className="box">{bit}</div>
+                <div className="box" key={Math.random()}>
+                  {bit}
+                </div>
               ))}
             </div>
             <div className="mantissa">
-              {result.mantissa.split("").map((bit) => (
-                <div className="box">{bit}</div>
+              {result.mantissa.split("").map((bit, index) => (
+                <div className="box" key={Math.random()}>
+                  {bit}
+                </div>
               ))}
             </div>
           </>
