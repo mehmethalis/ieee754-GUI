@@ -24,7 +24,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ number: parseFloat(number), precisionType: precisionType }),
     };
-    await fetch("http://127.0.0.1:5000/ieee754", requestOptions)
+    await fetch("https://api-ieee754.onrender.com/ieee754", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         setResult({
