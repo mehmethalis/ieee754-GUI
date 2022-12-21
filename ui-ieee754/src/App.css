@@ -104,7 +104,7 @@ button:hover {
 }
 .result-header .legend {
   display: flex;
-  align-items: start;
+  align-items:  flex-start;
   flex-direction: column;
   width: 400px;
 }

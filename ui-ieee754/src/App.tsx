@@ -8,7 +8,7 @@ function App() {
   const [number, setNumber] = useState("");
   const [precisionType, setType] = useState("half");
   const [result, setResult] = useState({
-    isShow: true,
+    isShow: false,
     type: "single",
     number: "12.5",
     data: "01000001010010000000000000000000",
