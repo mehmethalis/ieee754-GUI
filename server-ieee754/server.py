@@ -17,6 +17,10 @@ def ieee754():
         number = request.json["number"]
         precisionType = request.json["precisionType"]
 
+        sign = None
+        exponent = None
+        mantissa = None
+
         if precisionType == "half":
             b = IEEE754(
                 x=number,
@@ -61,13 +65,12 @@ def ieee754():
         def find_bias(exponent):
             return 2 ** (exponent - 1) - 1
 
-        def result(self, b, sign, exponent, mantissa):
-            self.b = b
-            self.sign = sign
-            self.exponent = exponent
-            self.mantissa = mantissa
-
-        return {result(str(b), sign, exponent, mantissa)}
+        return {
+            "data": str(b),
+            "sign": sign,
+            "exponent": exponent,
+            "mantissa": mantissa,
+        }
 
     else:
         return {"message": "Welcome ieee754 API", "Author": "haliscicek.com/en"}
